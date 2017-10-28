@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Kalimba</title>
+
+    <script src='jquery-3.2.1.min.js'></script>
+    <script src='Tone.min.js'></script>
+
+    <script>
+        //create a synth and connect it to the master output (your speakers)
+        var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
+
+        var config = {
+            //0 : '', // 'That key has no keycode',
+            //3 : '', // 'break',
+            //12 : '', // 'clear',
+            //19 : '', // 'pause/break',
+            //21 : '', // 'hangul',
+            //25 : '', // 'hanja',
+            //28 : '', // 'conversion',
+            //29 : '', // 'non-conversion',
+            //33 : '', // 'page up',
+            //34 : '', // 'page down',
+            //35 : '', // 'end',
+            //36 : '', // 'home',
+            //41 : '', // 'select',
+            //42 : '', // 'print',
+            //43 : '', // 'execute',
+            //44 : '', // 'Print Screen',
+            //45 : '', // 'insert',
+            //46 : '', // 'delete',
+            //47 : '', // 'help',
+            //58 : '', // ':',
+            //59 : '', // 'semicolon (firefox), equals',
+            //60 : '', // '<',
+            //61 : '', // 'equals (firefox)',
+            //63 : '', // 'ß',
+            //64 : '', // '@ (firefox)',
+
+            //// 1
+            27 : 'g5', // 'escape',
+
+            //// 2
+            192 : 'e5', // '`',
+            49 : 'c5', // '1',
+            50 : 'a4', // '2',
+            51 : 'f4', // '3',
+            52 : 'd4', // '4',
+            53 : 'bb3', // '5',
+            54 : 'a3', // '6',
+            55 : 'c4', // '7',
+            56 : 'e4', // '8',
+            57 : 'g4', // '9',
+            48 : 'bb4', // '0',
+            189 : 'd5', // 'dash',
+            187 : 'f5', // 'equal sign',
+            8 : 'a5', // 'backspace / delete',
+
+            /// 3
+            9 : 'd5', // 'tab',
+            81 : 'bb4', // 'q',
+            87 : 'g4', // 'w',
+            69 : 'e4', // 'e',
+            82 : 'c4', // 'r',
+            84 : 'a3', // 't',
+            89 : 'g3', // 'y',
+            85 : 'bb3', // 'u',
+            73 : 'd4', // 'i',
+            79 : 'f4', // 'o',
+            80 : 'a4', // 'p',
+            219 : 'c5', // 'open bracket',
+            221 : 'e5', // 'close bracket / å',
+
+            //// 4
+            20 : 'c5', // 'caps lock',
+            65 : 'a4', // 'a',
+            83 : 'f4', // 's',
+            68 : 'd4', // 'd',
+            70 : 'bb3', // 'f',
+            71 : 'g3', // 'g',
+            72 : 'f3', // 'h',
+            74 : 'a3', // 'j',
+            75 : 'c4', // 'k',
+            76 : 'e4', // 'l',
+            186 : 'g4', // 'semi-colon / ñ',
+            222 : 'bb4', // 'single quote / ø / ä',
+            220 : 'd5', // 'back slash',
+
+            13 : 'f5', // 'enter',
+
+            //// 5
+            90 : 'g4', // 'z',
+            88 : 'e4', // 'x',
+            67 : 'c4', // 'c',
+            86 : 'a3', // 'v',
+            66 : 'f3', // 'b',
+            78 : 'e3', // 'n',
+            77 : 'g3', // 'm',
+            188 : 'bb3', // 'comma',
+            190 : 'd4', // 'period',
+            191 : 'f4', // 'forward slash / ç',
+            16 : 'a4', // 'shift',
+
+            //// 6
+            17 : 'g4', // 'ctrl',
+            18 : 'f4', // 'alt',
+            91 : 'c4', // 'Windows Key / Left ⌘ / Chromebook Search key',
+            32 : 'f3', // 'spacebar',
+            93 : 'a3', // 'Windows Menu / Right ⌘',
+
+            37 : 'g2', // 'left arrow',
+            38 : 'c3', // 'up arrow',
+            39 : 'a2', // 'right arrow',
+            40 : 'f2', // 'down arrow',
+
+
+            //92 : '', // 'right window key',
+
+            95: '', // 'sleep',
+            //96 : '', // 'numpad 0',
+            //97 : '', // 'numpad 1',
+            //98 : '', // 'numpad 2',
+            //99 : '', // 'numpad 3',
+            //100 : '', // 'numpad 4',
+            //101 : '', // 'numpad 5',
+            //102 : '', // 'numpad 6',
+            //103 : '', // 'numpad 7',
+            //104 : '', // 'numpad 8',
+            //105 : '', // 'numpad 9',
+            //106 : '', // 'multiply',
+            //107 : '', // 'add',
+            //108 : '', // 'numpad period (firefox)',
+            //109 : '', // 'subtract',
+            //110 : '', // 'decimal point',
+            //111 : '', // 'divide',
+            //112 : '', // 'f1',
+            //113 : '', // 'f2',
+            //114 : '', // 'f3',
+            //115 : '', // 'f4',
+            //116 : '', // 'f5',
+            //117 : '', // 'f6',
+            //118 : '', // 'f7',
+            //119 : '', // 'f8',
+            //120 : '', // 'f9',
+            //121 : '', // 'f10',
+            //122 : '', // 'f11',
+            //123 : '', // 'f12',
+            //124 : '', // 'f13',
+            //125 : '', // 'f14',
+            //126 : '', // 'f15',
+            //127 : '', // 'f16',
+            //128 : '', // 'f17',
+            //129 : '', // 'f18',
+            //130 : '', // 'f19',
+            //131 : '', // 'f20',
+            //132 : '', // 'f21',
+            //133 : '', // 'f22',
+            //134 : '', // 'f23',
+            //135 : '', // 'f24',
+            //144 : '', // 'num lock',
+            //145 : '', // 'scroll lock',
+            //160 : '', // '^',
+            //161 : '', // '!',
+            //163 : '', // '#',
+            //164 : '', // '$',
+            //165 : '', // 'ù',
+            //166 : '', // 'page backward',
+            //167 : '', // 'page forward',
+            //168 : '', // 'refresh',
+            //169 : '', // 'closing paren (AZERTY)',
+            //170 : '', // '*',
+            //171 : '', // '~ + * key',
+            //172 : '', // 'home key',
+            //173 : '', // 'minus (firefox), mute/unmute',
+            //174 : '', // 'decrease volume level',
+            //175 : '', // 'increase volume level',
+            //176 : '', // 'next',
+            //177 : '', // 'previous',
+            //178 : '', // 'stop',
+            //179 : '', // 'play/pause',
+            //180 : '', // 'e-mail',
+            //181 : '', // 'mute/unmute (firefox)',
+            //182 : '', // 'decrease volume level (firefox)',
+            //183 : '', // 'increase volume level (firefox)',
+
+            //193 : '', // '?, / or °',
+            //194 : '', // 'numpad period (chrome)',
+
+            //223 : '', // '`',
+            //224 : '', // 'left or right ⌘ key (firefox)',
+            //225 : '', // 'altgr',
+            //226 : '', // '< /git >, left back slash',
+            //230 : '', // 'GNOME Compose Key',
+            //231 : '', // 'ç',
+            //233 : '', // 'XF86Forward',
+            //234 : '', // 'XF86Back',
+            //240 : '', // 'alphanumeric',
+            //242 : '', // 'hiragana/katakana',
+            //243 : '', // 'half-width/full-width',
+            //244 : '', // 'kanji',
+            //255 : '', // 'toggle touchpad'
+        };
+
+        // random
+        var notes = [];
+        for (var key in config) {
+            if (config.hasOwnProperty(key)) {
+                notes.push(config[key]);
+            }
+        }
+
+        function randomNote () {
+            var rand = 0.5 + Math.random() * notes.length;
+            rand = Math.round(rand);
+            return notes[rand];
+        }
+        
+        function getNote (which) {
+            console.log('getNote', which);
+            if (typeof which === 'number') {
+                return config[which];
+            } else {
+                return randomNote();
+            }
+        }
+
+        $(function () {
+           var $window = $(window), $document = $(document);
+//           $document.on('keypress', function (event) {
+//               var note = getNote(event.which);
+//
+//               if (note)
+//                   synth.triggerAttackRelease(note, '8n');
+//           });
+
+            var keyPressed = {};
+            var tip0Hidden;
+
+            $document.on('keydown touchstart', function (event) {
+                var which = event.which,
+                    isKeydown = event.type === 'keydown';
+
+                if (keyPressed[which]) return; // ignore
+                keyPressed[which] = isKeydown;
+
+                var note = getNote(isKeydown && which);
+
+               if (note) {
+                   if (isKeydown) {
+                       synth.triggerAttack(note);
+                   } else {
+                       synth.triggerAttackRelease(note, '8n');
+                   }
+               } else {
+                   synth.triggerAttackRelease('f1', '8n');
+               }
+
+                if (!tip0Hidden) {
+                    $('#tip0').fadeTo(1000, 0);
+                }
+           });
+
+            $document.on('keyup', function (event) {
+                delete keyPressed[event.which];
+
+                var which = event.which, note = getNote(which);
+                if (note/* && notePressed[note] === which*/) {
+                    synth.triggerRelease(note);
+                    //delete notePressed[note];
+                }
+
+            });
+
+            $window.on('blur', function () {
+                for (var which in keyPressed) {
+                    keyPressed[which] = false;
+                    var note = getNote(which);
+                    if (note)
+                        synth.triggerRelease(note);
+                }
+            });
+
+            console.info('(c) 2017 Art Polikarpov, artpolikarpov@gmail.com');
+        });
+    </script>
+    <script src="Waveform.js"></script>
+</head>
+<body>
+    <div style="position: absolute; top: 50%; left: 30%; transform: translate(0, -50%); z-index: 2; color: #fff; font-family: Georgia;">
+        <h1 style="font-weight: normal;">Kalimba.js</h1>
+        <p id="tip0" style="opacity: .9;">
+            <span style="background: #00edff; color: #000; padding: .1em .5em .2em; border-radius: 3px;">press any key...</span><br>
+        </p>
+    </div>
+</body>
+</html>
