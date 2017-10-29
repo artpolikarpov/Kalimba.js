@@ -4,6 +4,19 @@
     <meta charset='UTF-8'>
     <title>Kalimba</title>
 
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21114316-10"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-21114316-10');
+    </script>
+
     <script src='jquery-3.2.1.min.js'></script>
     <script src='Tone.min.js'></script>
 
@@ -11,7 +24,7 @@
         //create a synth and connect it to the master output (your speakers)
         var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
 
-        var config = {
+        var notesByKeyCode = {
             //0 : '', // 'That key has no keycode',
             //3 : '', // 'break',
             //12 : '', // 'clear',
@@ -105,9 +118,9 @@
             //// 6
             17 : 'g4', // 'ctrl',
             18 : 'f4', // 'alt',
-            91 : 'c4', // 'Windows Key / Left ⌘ / Chromebook Search key',
+            //91 : 'c4', // 'Windows Key / Left ⌘ / Chromebook Search key',
             32 : 'f3', // 'spacebar',
-            93 : 'a3', // 'Windows Menu / Right ⌘',
+            //93 : 'a3', // 'Windows Menu / Right ⌘',
 
             37 : 'g2', // 'left arrow',
             38 : 'c3', // 'up arrow',
@@ -202,11 +215,68 @@
             //255 : '', // 'toggle touchpad'
         };
 
+        var longNotes = {
+            //// 2
+            192 : 'e5', // '`',
+            49 : 'c5', // '1',
+            50 : 'a4', // '2',
+            51 : 'f4', // '3',
+            52 : 'd4', // '4',
+            53 : 'bb3', // '5',
+            54 : 'a3', // '6',
+            55 : 'c4', // '7',
+            56 : 'e4', // '8',
+            57 : 'g4', // '9',
+            48 : 'bb4', // '0',
+            189 : 'd5', // 'dash',
+            187 : 'f5', // 'equal sign',
+
+            /// 3
+            81 : 'bb4', // 'q',
+            87 : 'g4', // 'w',
+            69 : 'e4', // 'e',
+            82 : 'c4', // 'r',
+            84 : 'a3', // 't',
+            89 : 'g3', // 'y',
+            85 : 'bb3', // 'u',
+            73 : 'd4', // 'i',
+            79 : 'f4', // 'o',
+            80 : 'a4', // 'p',
+            219 : 'c5', // 'open bracket',
+            221 : 'e5', // 'close bracket / å',
+
+            //// 4
+            65 : 'a4', // 'a',
+            83 : 'f4', // 's',
+            68 : 'd4', // 'd',
+            70 : 'bb3', // 'f',
+            71 : 'g3', // 'g',
+            72 : 'f3', // 'h',
+            74 : 'a3', // 'j',
+            75 : 'c4', // 'k',
+            76 : 'e4', // 'l',
+            186 : 'g4', // 'semi-colon / ñ',
+            222 : 'bb4', // 'single quote / ø / ä',
+            220 : 'd5', // 'back slash',
+
+            //// 5
+            90 : 'g4', // 'z',
+            88 : 'e4', // 'x',
+            67 : 'c4', // 'c',
+            86 : 'a3', // 'v',
+            66 : 'f3', // 'b',
+            78 : 'e3', // 'n',
+            77 : 'g3', // 'm',
+            188 : 'bb3', // 'comma',
+            190 : 'd4', // 'period',
+            191 : 'f4', // 'forward slash / ç',
+        };
+
         // random
         var notes = [];
-        for (var key in config) {
-            if (config.hasOwnProperty(key)) {
-                notes.push(config[key]);
+        for (var key in notesByKeyCode) {
+            if (notesByKeyCode.hasOwnProperty(key)) {
+                notes.push(notesByKeyCode[key]);
             }
         }
 
@@ -219,7 +289,7 @@
         function getNote (which) {
             console.log('getNote', which);
             if (typeof which === 'number') {
-                return config[which];
+                return notesByKeyCode[which];
             } else {
                 return randomNote();
             }
@@ -239,15 +309,15 @@
 
             $document.on('keydown touchstart', function (event) {
                 var which = event.which,
-                    isKeydown = event.type === 'keydown';
+                    isLong = event.type === 'keydown' && longNotes[which];
 
                 if (keyPressed[which]) return; // ignore
-                keyPressed[which] = isKeydown;
+                keyPressed[which] = isLong;
 
-                var note = getNote(isKeydown && which);
+                var note = getNote(which);
 
                if (note) {
-                   if (isKeydown) {
+                   if (isLong) {
                        synth.triggerAttack(note);
                    } else {
                        synth.triggerAttackRelease(note, '8n');
@@ -262,9 +332,8 @@
            });
 
             $document.on('keyup', function (event) {
-                delete keyPressed[event.which];
-
                 var which = event.which, note = getNote(which);
+                delete keyPressed[which];
                 if (note/* && notePressed[note] === which*/) {
                     synth.triggerRelease(note);
                     //delete notePressed[note];
@@ -274,7 +343,7 @@
 
             $window.on('blur', function () {
                 for (var which in keyPressed) {
-                    keyPressed[which] = false;
+                    delete keyPressed[which];
                     var note = getNote(which);
                     if (note)
                         synth.triggerRelease(note);
