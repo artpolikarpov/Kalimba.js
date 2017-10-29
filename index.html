@@ -273,26 +273,16 @@
         };
 
         // random
-        var notes = [];
-        for (var key in notesByKeyCode) {
-            if (notesByKeyCode.hasOwnProperty(key)) {
-                notes.push(notesByKeyCode[key]);
-            }
-        }
+        var randomCodes = [65,83,68,70,71,72,74,75,76];
 
-        function randomNote () {
-            var rand = 0.5 + Math.random() * notes.length;
+        function randomCode () {
+            var rand = 0.5 + Math.random() * randomCodes.length;
             rand = Math.round(rand);
-            return notes[rand];
+            return randomCodes[rand];
         }
         
         function getNote (which) {
-            console.log('getNote', which);
-            if (typeof which === 'number') {
-                return notesByKeyCode[which];
-            } else {
-                return randomNote();
-            }
+            return notesByKeyCode[typeof which === 'number' ? which : randomCode()];
         }
 
         $(function () {
@@ -309,12 +299,13 @@
 
             $document.on('keydown touchstart', function (event) {
                 var which = event.which,
-                    isLong = event.type === 'keydown' && longNotes[which];
+                    isKeydown = event.type === 'keydown',
+                    isLong = isKeydown && longNotes[which];
 
                 if (keyPressed[which]) return; // ignore
                 keyPressed[which] = isLong;
 
-                var note = getNote(which);
+                var note = getNote(isKeydown && which);
 
                if (note) {
                    if (isLong) {
