@@ -22,335 +22,457 @@
 
     <script>
         //create a synth and connect it to the master output (your speakers)
-        var synth = new Tone.PolySynth(4, Tone.Synth).toMaster();
+        var config = {
+            "_192": {
+                "note": "e5",
+                "key": {
+                    "key": "`"
+                },
+                pan: -1
+            },
+            "_49": {
+                "note": "c5",
+                "key": {
+                    "key": "1"
+                },
+                pan: -.9
+            },
+            "_50": {
+                "note": "a4",
+                "key": {
+                    "key": "2"
+                },
+                pan: -.8
+            },
+            "_51": {
+                "note": "f4",
+                "key": {
+                    "key": "3"
+                },
+                pan: -.7
+            },
+            "_52": {
+                "note": "d4",
+                "key": {
+                    "key": "4"
+                },
+                pan: -.6
+            },
+            "_53": {
+                "note": "bb3",
+                "key": {
+                    "key": "5"
+                },
+                pan: -.5
+            },
+            "_54": {
+                "note": "a3",
+                "key": {
+                    "key": "6"
+                },
+                pan: .3
+            },
+            "_55": {
+                "note": "c4",
+                "key": {
+                    "key": "7"
+                },
+                pan: .4
+            },
+            "_56": {
+                "note": "e4",
+                "key": {
+                    "key": "8"
+                },
+                pan: .5
+            },
+            "_57": {
+                "note": "g4",
+                "key": {
+                    "key": "9"
+                },
+                pan: .6
+            },
+            "_48": {
+                "note": "bb4",
+                "key": {
+                    "key": "0"
+                },
+                pan: .7
+            },
+            "_189": {
+                "note": "d5",
+                "key": {
+                    "key": "-"
+                },
+                pan: .8
+            },
+            "_187": {
+                "note": "f5",
+                "key": {
+                    "key": "="
+                },
+                pan: .9
+            },
+            "_8": {
+                "note": "a5",
+                "key": {
+                    "key": "backspace"
+                },
+                pan: 1
+            },
 
-        var notesByKeyCode = {
-            //0 : '', // 'That key has no keycode',
-            //3 : '', // 'break',
-            //12 : '', // 'clear',
-            //19 : '', // 'pause/break',
-            //21 : '', // 'hangul',
-            //25 : '', // 'hanja',
-            //28 : '', // 'conversion',
-            //29 : '', // 'non-conversion',
-            //33 : '', // 'page up',
-            //34 : '', // 'page down',
-            //35 : '', // 'end',
-            //36 : '', // 'home',
-            //41 : '', // 'select',
-            //42 : '', // 'print',
-            //43 : '', // 'execute',
-            //44 : '', // 'Print Screen',
-            //45 : '', // 'insert',
-            //46 : '', // 'delete',
-            //47 : '', // 'help',
-            //58 : '', // ':',
-            //59 : '', // 'semicolon (firefox), equals',
-            //60 : '', // '<',
-            //61 : '', // 'equals (firefox)',
-            //63 : '', // 'ß',
-            //64 : '', // '@ (firefox)',
+            "_81": {
+                "note": "bb4",
+                "key": {
+                    "key": "q"
+                },
+                pan: -.8
+            },
+            "_87": {
+                "note": "g4",
+                "key": {
+                    "key": "w"
+                },
+                pan: -.7
+            },
+            "_69": {
+                "note": "e4",
+                "key": {
+                    "key": "e"
+                },
+                pan: -.6
+            },
+            "_82": {
+                "note": "c4",
+                "key": {
+                    "key": "r"
+                },
+                pan: -.5
+            },
+            "_84": {
+                "note": "a3",
+                "key": {
+                    "key": "t"
+                },
+                pan: -.4
+            },
+            "_89": {
+                "note": "g3",
+                "key": {
+                    "key": "y"
+                },
+                pan: -.3
+            },
+            "_85": {
+                "note": "bb3",
+                "key": {
+                    "key": "u"
+                },
+                pan: .3
+            },
+            "_73": {
+                "note": "d4",
+                "key": {
+                    "key": "i"
+                },
+                pan: .4
+            },
+            "_79": {
+                "note": "f4",
+                "key": {
+                    "key": "o"
+                },
+                pan: .5
+            },
+            "_80": {
+                "note": "a4",
+                "key": {
+                    "key": "p"
+                },
+                pan: .6
+            },
+            "_219": {
+                "note": "c5",
+                "key": {
+                    "key": "["
+                },
+                pan: .7
+            },
+            "_221": {
+                "note": "e5",
+                "key": {
+                    "key": "]"
+                },
+                pan: .8
+            },
+            "_65": {
+                "note": "a4",
+                "key": {
+                    "key": "a"
+                },
+                pan: -.8
+            },
+            "_83": {
+                "note": "f4",
+                "key": {
+                    "key": "s"
+                },
+                pan: -.7
+            },
+            "_68": {
+                "note": "d4",
+                "key": {
+                    "key": "d"
+                },
+                pan: -.6
+            },
+            "_70": {
+                "note": "bb3",
+                "key": {
+                    "key": "f"
+                },
+                pan: -.4
+            },
+            "_71": {
+                "note": "g3",
+                "key": {
+                    "key": "g"
+                },
+                pan: -.3
+            },
+            "_72": {
+                "note": "f3",
+                "key": {
+                    "key": "h"
+                },
+                pan: -.1
+            },
+            "_74": {
+                "note": "a3",
+                "key": {
+                    "key": "j"
+                },
+                pan: .2
+            },
+            "_75": {
+                "note": "c4",
+                "key": {
+                    "key": "k"
+                },
+                pan: .4
+            },
+            "_76": {
+                "note": "e4",
+                "key": {
+                    "key": "l"
+                },
+                pan: .5
+            },
+            "_186": {
+                "note": "g4",
+                "key": {
+                    "key": ";"
+                },
+                pan: .6
+            },
+            "_222": {
+                "note": "bb4",
+                "key": {
+                    "key": "'"
+                },
+                pan: .7
+            },
+            "_220": {
+                "note": "d5",
+                "key": {
+                    "key": "\\"
+                },
+                pan: -.1
+            },
+            "_13": {
+                "note": "f5",
+                "key": {
+                    "key": "enter"
+                },
+                val: .1
+            },
 
-            //// 1
-            27 : 'g5', // 'escape',
+            "_90": {
+                "note": "g4",
+                "key": {
+                    "key": "z"
+                },
+                pan: -.4
+            },
+            "_88": {
+                "note": "e4",
+                "key": {
+                    "key": "x"
+                },
+                pan: -.3
+            },
+            "_67": {
+                "note": "c4",
+                "key": {
+                    "key": "c"
+                },
+                pan: -.2
+            },
+            "_86": {
+                "note": "a3",
+                "key": {
+                    "key": "v"
+                },
+                pan: -.1
+            },
+            "_66": {
+                "note": "f3",
+                "key": {
+                    "key": "b"
+                },
+                pan: 0
+            },
+            "_78": {
+                "note": "e3",
+                "key": {
+                    "key": "n"
+                },
+                pan: .1
+            },
+            "_77": {
+                "note": "g3",
+                "key": {
+                    "key": "m"
+                },
+                pan: .2
+            },
+            "_188": {
+                "note": "bb3",
+                "key": {
+                    "key": ","
+                },
+                pan: .3
+            },
+            "_190": {
+                "note": "d4",
+                "key": {
+                    "key": "."
+                },
+                pan: .4
+            },
+            "_191": {
+                "note": "f4",
+                "key": {
+                    "key": "/"
+                },
+                pan: .5
+            },
 
-            //// 2
-            192 : 'e5', // '`',
-            49 : 'c5', // '1',
-            50 : 'a4', // '2',
-            51 : 'f4', // '3',
-            52 : 'd4', // '4',
-            53 : 'bb3', // '5',
-            54 : 'a3', // '6',
-            55 : 'c4', // '7',
-            56 : 'e4', // '8',
-            57 : 'g4', // '9',
-            48 : 'bb4', // '0',
-            189 : 'd5', // 'dash',
-            187 : 'f5', // 'equal sign',
-            8 : 'a5', // 'backspace / delete',
-
-            /// 3
-            9 : 'd5', // 'tab',
-            81 : 'bb4', // 'q',
-            87 : 'g4', // 'w',
-            69 : 'e4', // 'e',
-            82 : 'c4', // 'r',
-            84 : 'a3', // 't',
-            89 : 'g3', // 'y',
-            85 : 'bb3', // 'u',
-            73 : 'd4', // 'i',
-            79 : 'f4', // 'o',
-            80 : 'a4', // 'p',
-            219 : 'c5', // 'open bracket',
-            221 : 'e5', // 'close bracket / å',
-
-            //// 4
-            20 : 'c5', // 'caps lock',
-            65 : 'a4', // 'a',
-            83 : 'f4', // 's',
-            68 : 'd4', // 'd',
-            70 : 'bb3', // 'f',
-            71 : 'g3', // 'g',
-            72 : 'f3', // 'h',
-            74 : 'a3', // 'j',
-            75 : 'c4', // 'k',
-            76 : 'e4', // 'l',
-            186 : 'g4', // 'semi-colon / ñ',
-            222 : 'bb4', // 'single quote / ø / ä',
-            220 : 'd5', // 'back slash',
-
-            13 : 'f5', // 'enter',
-
-            //// 5
-            90 : 'g4', // 'z',
-            88 : 'e4', // 'x',
-            67 : 'c4', // 'c',
-            86 : 'a3', // 'v',
-            66 : 'f3', // 'b',
-            78 : 'e3', // 'n',
-            77 : 'g3', // 'm',
-            188 : 'bb3', // 'comma',
-            190 : 'd4', // 'period',
-            191 : 'f4', // 'forward slash / ç',
-            16 : 'a4', // 'shift',
-
-            //// 6
-            17 : 'g4', // 'ctrl',
-            18 : 'f4', // 'alt',
-            //91 : 'c4', // 'Windows Key / Left ⌘ / Chromebook Search key',
-            32 : 'f3', // 'spacebar',
-            //93 : 'a3', // 'Windows Menu / Right ⌘',
-
-            37 : 'g2', // 'left arrow',
-            38 : 'c3', // 'up arrow',
-            39 : 'a2', // 'right arrow',
-            40 : 'f2', // 'down arrow',
-
-
-            //92 : '', // 'right window key',
-
-            95: '', // 'sleep',
-            //96 : '', // 'numpad 0',
-            //97 : '', // 'numpad 1',
-            //98 : '', // 'numpad 2',
-            //99 : '', // 'numpad 3',
-            //100 : '', // 'numpad 4',
-            //101 : '', // 'numpad 5',
-            //102 : '', // 'numpad 6',
-            //103 : '', // 'numpad 7',
-            //104 : '', // 'numpad 8',
-            //105 : '', // 'numpad 9',
-            //106 : '', // 'multiply',
-            //107 : '', // 'add',
-            //108 : '', // 'numpad period (firefox)',
-            //109 : '', // 'subtract',
-            //110 : '', // 'decimal point',
-            //111 : '', // 'divide',
-            //112 : '', // 'f1',
-            //113 : '', // 'f2',
-            //114 : '', // 'f3',
-            //115 : '', // 'f4',
-            //116 : '', // 'f5',
-            //117 : '', // 'f6',
-            //118 : '', // 'f7',
-            //119 : '', // 'f8',
-            //120 : '', // 'f9',
-            //121 : '', // 'f10',
-            //122 : '', // 'f11',
-            //123 : '', // 'f12',
-            //124 : '', // 'f13',
-            //125 : '', // 'f14',
-            //126 : '', // 'f15',
-            //127 : '', // 'f16',
-            //128 : '', // 'f17',
-            //129 : '', // 'f18',
-            //130 : '', // 'f19',
-            //131 : '', // 'f20',
-            //132 : '', // 'f21',
-            //133 : '', // 'f22',
-            //134 : '', // 'f23',
-            //135 : '', // 'f24',
-            //144 : '', // 'num lock',
-            //145 : '', // 'scroll lock',
-            //160 : '', // '^',
-            //161 : '', // '!',
-            //163 : '', // '#',
-            //164 : '', // '$',
-            //165 : '', // 'ù',
-            //166 : '', // 'page backward',
-            //167 : '', // 'page forward',
-            //168 : '', // 'refresh',
-            //169 : '', // 'closing paren (AZERTY)',
-            //170 : '', // '*',
-            //171 : '', // '~ + * key',
-            //172 : '', // 'home key',
-            //173 : '', // 'minus (firefox), mute/unmute',
-            //174 : '', // 'decrease volume level',
-            //175 : '', // 'increase volume level',
-            //176 : '', // 'next',
-            //177 : '', // 'previous',
-            //178 : '', // 'stop',
-            //179 : '', // 'play/pause',
-            //180 : '', // 'e-mail',
-            //181 : '', // 'mute/unmute (firefox)',
-            //182 : '', // 'decrease volume level (firefox)',
-            //183 : '', // 'increase volume level (firefox)',
-
-            //193 : '', // '?, / or °',
-            //194 : '', // 'numpad period (chrome)',
-
-            //223 : '', // '`',
-            //224 : '', // 'left or right ⌘ key (firefox)',
-            //225 : '', // 'altgr',
-            //226 : '', // '< /git >, left back slash',
-            //230 : '', // 'GNOME Compose Key',
-            //231 : '', // 'ç',
-            //233 : '', // 'XF86Forward',
-            //234 : '', // 'XF86Back',
-            //240 : '', // 'alphanumeric',
-            //242 : '', // 'hiragana/katakana',
-            //243 : '', // 'half-width/full-width',
-            //244 : '', // 'kanji',
-            //255 : '', // 'toggle touchpad'
+            "_32": {
+                "note": "f2",
+                "key": {
+                    "key": "s p a c e b a r"
+                }
+            }
         };
 
-        var longNotes = {
-            //// 2
-            192 : 'e5', // '`',
-            49 : 'c5', // '1',
-            50 : 'a4', // '2',
-            51 : 'f4', // '3',
-            52 : 'd4', // '4',
-            53 : 'bb3', // '5',
-            54 : 'a3', // '6',
-            55 : 'c4', // '7',
-            56 : 'e4', // '8',
-            57 : 'g4', // '9',
-            48 : 'bb4', // '0',
-            189 : 'd5', // 'dash',
-            187 : 'f5', // 'equal sign',
+        var synthsByPan = {};
 
-            /// 3
-            81 : 'bb4', // 'q',
-            87 : 'g4', // 'w',
-            69 : 'e4', // 'e',
-            82 : 'c4', // 'r',
-            84 : 'a3', // 't',
-            89 : 'g3', // 'y',
-            85 : 'bb3', // 'u',
-            73 : 'd4', // 'i',
-            79 : 'f4', // 'o',
-            80 : 'a4', // 'p',
-            219 : 'c5', // 'open bracket',
-            221 : 'e5', // 'close bracket / å',
+        var panVol = new Tone.PanVol(0, -3);
+        var synth = new Tone.Synth(0);
+        synth.chain(panVol, Tone.Master);
 
-            //// 4
-            65 : 'a4', // 'a',
-            83 : 'f4', // 's',
-            68 : 'd4', // 'd',
-            70 : 'bb3', // 'f',
-            71 : 'g3', // 'g',
-            72 : 'f3', // 'h',
-            74 : 'a3', // 'j',
-            75 : 'c4', // 'k',
-            76 : 'e4', // 'l',
-            186 : 'g4', // 'semi-colon / ñ',
-            222 : 'bb4', // 'single quote / ø / ä',
-            220 : 'd5', // 'back slash',
+        for (var key in config) {
+            var note = config[key];
 
-            //// 5
-            90 : 'g4', // 'z',
-            88 : 'e4', // 'x',
-            67 : 'c4', // 'c',
-            86 : 'a3', // 'v',
-            66 : 'f3', // 'b',
-            78 : 'e3', // 'n',
-            77 : 'g3', // 'm',
-            188 : 'bb3', // 'comma',
-            190 : 'd4', // 'period',
-            191 : 'f4', // 'forward slash / ç',
-        };
+            if (typeof note.pan === 'number') {
+                var panSynth = synthsByPan[note.pan];
+                if (!panSynth) {
+                    var panPanVol = new Tone.PanVol(note.pan, -3);
+                    panSynth = new Tone.Synth(0);
+                    panSynth.chain(panPanVol, Tone.Master);
+                }
+                note.synth = panSynth;
+            } else {
+                note.synth = synth;
+            }
+
+        }
 
         // random
-        var randomCodes = [65,83,68,70,71,72,74,75,76];
+        var randomCodes = [65, 83, 68, 70, 71, 72, 74, 75, 76];
 
         function randomCode () {
             var rand = 0.5 + Math.random() * randomCodes.length;
             rand = Math.round(rand);
             return randomCodes[rand];
         }
+
+        var octaveShift = 0;
         
-        function getNote (which) {
-            return notesByKeyCode[typeof which === 'number' ? which : randomCode()];
+        function tryPlay (which) {
+            try {
+                var noteOptions = config['_' + (typeof which === 'number' ? which : randomCode())];
+                var note = noteOptions.note.match(/(\D+)(\d)$/);
+
+                noteOptions.synth.triggerAttackRelease(note[1] + (+note[2] + octaveShift), '8n');
+                return true;
+            } catch (e) {
+                // ignore
+            }
         }
 
         $(function () {
            var $window = $(window), $document = $(document);
-//           $document.on('keypress', function (event) {
-//               var note = getNote(event.which);
-//
-//               if (note)
-//                   synth.triggerAttackRelease(note, '8n');
-//           });
 
             var keyPressed = {};
-            var tip0Hidden;
-
-            $document.on('keydown touchstart', function (event) {
+            $document.on('keydown', function (event) {
                 var which = event.which,
-                    isKeydown = event.type === 'keydown',
-                    isLong = isKeydown && longNotes[which];
+                    isKeydown = event.type === 'keydown';
 
                 if (keyPressed[which]) return; // ignore
-                keyPressed[which] = isLong;
+                keyPressed[which] = true;
 
-                var note = getNote(isKeydown && which);
+                var played = tryPlay(isKeydown && which);
 
-               if (note) {
-                   if (isLong) {
-                       synth.triggerAttack(note);
-                   } else {
-                       synth.triggerAttackRelease(note, '8n');
-                   }
-               } else {
-                   synth.triggerAttackRelease('f1', '8n');
-               }
-
-                if (!tip0Hidden) {
-                    $('#tip0').fadeTo(1000, 0);
+                switch (which) {
+                   case 38:
+                       octaveShift++;
+                       break;
+                   case 40:
+                       octaveShift--;
+                       break;
                 }
            });
 
             $document.on('keyup', function (event) {
-                var which = event.which, note = getNote(which);
+                var which = event.which;
                 delete keyPressed[which];
-                if (note/* && notePressed[note] === which*/) {
-                    synth.triggerRelease(note);
-                    //delete notePressed[note];
-                }
-
-            });
-
-            $window.on('blur', function () {
-                for (var which in keyPressed) {
-                    delete keyPressed[which];
-                    var note = getNote(which);
-                    if (note)
-                        synth.triggerRelease(note);
-                }
             });
 
             console.info('(c) 2017 Art Polikarpov, artpolikarpov@gmail.com');
         });
     </script>
-    <script src="Waveform.js"></script>
 </head>
-<body>
-    <div style="position: absolute; top: 50%; left: 30%; transform: translate(0, -50%); z-index: 2; color: #fff; font-family: Georgia;">
-        <h1 style="font-weight: normal;">Kalimba.js</h1>
-        <p id="tip0" style="opacity: .9;">
-            <span style="background: #00edff; color: #000; padding: .1em .5em .2em; border-radius: 3px;">press any key...</span><br>
+<body style="line-height: 1.6">
+    <div style="position: absolute; top: 15%; left: 30%; z-index: 2; color: #333; font-family: Georgia;">
+        <h1 style="color: blue;"><span style="background: blue; color: #fff; border-radius: 3px; padding: 0 3px;">Kalimba</span>.js</h1>
+        <p>
+            — press any key (on desktop or laptop)<br>
+            — type this:<br>
+            <span style="font-family: monospace; font-size: 1.2em; color: blue;">
+                &nbsp;&nbsp;&nbsp;&nbsp;g d f s &nbsp; g d f s<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;h k j l &nbsp; j l  k ;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;g d f s &nbsp; y i u o<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;lw ke jr th</span><br><br>
+            — continue... find something new ✋
+        </p>
+        <br><br><hr>
+        <p style="font-size: .9em; opacity: .6;">
+            <strong>any key</strong> — some note to dicsover<br>
+            <strong style="color: blue;">↑</strong> — octave up<br>
+            <strong style="color: blue;">↓</strong> — octave down
         </p>
     </div>
 </body>
