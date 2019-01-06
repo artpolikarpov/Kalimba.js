@@ -381,23 +381,6 @@
         
         var synthCreated;
 
-        for (var key in config) {
-            var note = config[key];
-
-            if (typeof note.pan === 'number') {
-                var panSynth = synthsByPan[note.pan];
-                if (!panSynth) {
-                    var panPanVol = new Tone.PanVol(note.pan, -3);
-                    panSynth = new Tone.Synth(0);
-                    panSynth.chain(panPanVol, Tone.Master);
-                }
-                note.synth = panSynth;
-            } else {
-                note.synth = synth;
-            }
-
-        }
-
         // random
         var randomCodes = [65, 83, 68, 70, 71, 72, 74, 75, 76];
 
