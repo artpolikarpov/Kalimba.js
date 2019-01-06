@@ -378,10 +378,8 @@
         };
 
         var synthsByPan = {};
-
-        var panVol = new Tone.PanVol(0, -3);
-        var synth = new Tone.Synth(0);
-        synth.chain(panVol, Tone.Master);
+        
+        var synthCreated;
 
         for (var key in config) {
             var note = config[key];
@@ -413,8 +411,31 @@
         
         function tryPlay (which) {
             try {
+                if (!synthCreated) {
+                    var panVol = new Tone.PanVol(0, -3);
+                    var synth = new Tone.Synth(0);
+                    synth.chain(panVol, Tone.Master);
+                    synthCreated = true;
+                }
+                
                 var noteOptions = config['_' + (typeof which === 'number' ? which : randomCode())];
                 var note = noteOptions.note.match(/(\D+)(\d)$/);
+                
+                if (!note.created) {
+                    if (typeof note.pan === 'number') {
+                        var panSynth = synthsByPan[note.pan];
+                        if (!panSynth) {
+                            var panPanVol = new Tone.PanVol(note.pan, -3);
+                            panSynth = new Tone.Synth(0);
+                            panSynth.chain(panPanVol, Tone.Master);
+                        }
+                        note.synth = panSynth;
+                    } else {
+                        note.synth = synth;
+                    }
+
+                    note.created = true;
+                }
 
                 noteOptions.synth.triggerAttackRelease(note[1] + (+note[2] + octaveShift), '8n');
                 return true;
